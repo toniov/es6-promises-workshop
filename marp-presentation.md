@@ -30,10 +30,17 @@ Valverde Antonio
 
 # Why Promises?
 
+---
+
+# Why Promises?
+
 ## Hadoken code
 
 ![hadoken](imgs/hadoken.jpg)
 
+---
+
+# Why Promises? 
 ## Compared to callback:
 
 - Chaining is simpler
@@ -44,8 +51,13 @@ Valverde Antonio
 - Standardized
   - Before promises: Node.js callbacks, XMLHttpRequest, IndexedDB, etc
 
+---
+
+# Why Promises?
 # One more reason: Trust
 
+---
+# Why Promises?
 ## Problems with callbacks
 
   1) Call the callback more than once
@@ -56,18 +68,30 @@ Valverde Antonio
 <br>
 This makes callbacks not very trustable in some cases.
 
+---
+
+# Why Promises?
 ## 1) Call the callback more than once
 
 → Promises are resolved only once by definition
 
+---
+
+# Why Promises?
 ## 2) Call the callback too early
 
 → The callback you provide to Promise instances then(..) method will always be called asynchronously
 
+---
+
+# Why Promises?
 ## 3) Don’t call the callback
 
 → A timeout can be set using Promise.race(..)
 
+---
+
+# Why Promises?
 ## 4) Errors could create a synchronous reaction whereas nonerrors would be asynchronous
 
 → Promises turn even JS exceptions (synchronous) into asynchronous behavior
@@ -76,6 +100,9 @@ This makes callbacks not very trustable in some cases.
 
 # What Is a Promise?
 
+---
+
+# What Is a Promise?
 
 ## A promise is a future value
 
@@ -100,6 +127,8 @@ https://promisesaplus.com/
 
 From now on I will speak about ES6 Native promises.
 
+---
+# Promise standard
 
 ## Famous Promise libraries
 
@@ -126,7 +155,6 @@ const p = new Promise(
 ```
 
 ---
-
 # Consuming a Promise
 ## Super rough basic usage
 
@@ -174,6 +202,10 @@ const p = Promise.resolve(3)
 p instanceof Promise // true
 ```
 
+---
+
+# Instance methods: `then()`
+
 ### Always return a promise
 #### → Return an empty resolved promise if there is no return
 ```js
@@ -183,6 +215,10 @@ Promise.resolve(3)
     console.log(x);
   });
 ```
+
+---
+
+# Instance methods: `then()`
 
 ### Always return a promise
 #### → If a normal result is returned, it is returned as a resolved promise
@@ -209,6 +245,10 @@ p.then(x => {
 });
 ```
 
+---
+
+# Instance methods: `then()`
+
 ### Always return a promise
 #### → A fulfilled or rejected promise can be returned as well
 ```js
@@ -233,6 +273,10 @@ Promise.resolve(3)
   });
 ```
 
+---
+
+# Instance methods: `then()`
+
 ### Always return a promise
 #### → if an exception is thrown returns a rejected promise with the value
 ```js
@@ -253,7 +297,9 @@ Promise.resolve(3)
 
 ---
 
-# Instance methods: `catch()`
+# Instance methods
+
+## `catch()`
 
 ### `catch()` is simply a more convenient alternative to calling `then()`
 
@@ -270,7 +316,10 @@ promise.catch(error => {
 });
 ```
 
-# Instance methods: `done()` ?
+---
+
+# Instance methods
+## `done()` ?
 
 `done()` is implemented in some libraries, but not in ES6 Promises at the moment.
 
@@ -287,6 +336,10 @@ Returns a Promise that:
    - Fulfillment value: Array with fulfillment values
 - Is rejected if any of the elements are rejected
    - Rejection value: first rejection value
+
+---
+
+# Static methods: `Promise.all()`
 
 ```js
 Promise.all([
@@ -329,7 +382,9 @@ Promise.all(promisedTexts)
 
 ---
 
-# Static methods: `Promise.race()`
+# Static methods
+
+## `Promise.race()`
 
 Accepts an iterable as parameter.
 
@@ -350,7 +405,11 @@ Promise.race([
   });
 ```
 
-# Static methods: `Promise.resolve(x)`
+---
+
+# Static methods
+
+## `Promise.resolve(x)`
 
 ### Returns a Promise that is fulfilled with `x`.
 ### `x` can be:
@@ -358,12 +417,20 @@ Promise.race([
 - Promise
 - Thenable
 
+---
+
+# Static methods: `Promise.resolve(x)`
+
 If `x` is a value:
 
 ```js
  Promise.resolve('abc')
    .then(x => console.log(x)); // abc
 ```
+ 
+---
+
+# Static methods: `Promise.resolve(x)`
 
 If `x` is a Promise whose constructor is the receiver then x is returned unchanged:
 
@@ -373,10 +440,18 @@ const p = new Promise(() => null);
 console.log(Promise.resolve(p) === p); // true
 ```
 
+---
+
+# Static methods: `Promise.resolve(x)`
+
 If `x` is a `thenable`, it is converted to a Promise.
 
 
 → *A `thenable` is an object that has a Promise-style then() method.*
+
+---
+
+# Static methods: `Promise.resolve(x)`
 
 `Promise.resolve(x)` makes sure we get a Promise result, so we can get a normalized, safe result we'd expect.
 
@@ -423,6 +498,10 @@ p.catch( handleErrors );
 
 If any step of the chain in fact does its own error handling (perhaps hidden/abstracted away from what you can see), `handleErrors(..)` won't be notified.
 
+---
+
+# Promise limitations
+
 ## Single value
 
 Promises by definition only have a single fulfillment value or a single rejection reason.
@@ -451,6 +530,12 @@ Promise.resolve(3)
   });
 ```
 
+---
+
+# Promise limitations
+
+## Single value
+
 Using ES6 destructuring we can avoid some boilerplate :
 
 ```js
@@ -472,6 +557,10 @@ Promise.resolve(3)
   });
 ```
 
+---
+
+# Promise limitations
+
 ## Promise uncancelable
 
 Once you create a Promise and register a fulfillment and/or rejection handler for it, there's nothing external you can do to stop that progression.
@@ -483,6 +572,10 @@ Once you create a Promise and register a fulfillment and/or rejection handler fo
 ## Many libraries have implemented compatibility with both Promises and callbacks.
 
 As a convention, usually a Promise is returned if no callback is passed.
+
+---
+
+# Compatibility Promises/callbacks in libraries
 
 ## Example: Node.js MongoDB Driver API
 
@@ -529,6 +622,9 @@ p.then( function b() {
 console.log('F');
 ```
 
+--- 
+
+# Quizes
 ## What is logged? (Part 1)
 
 ```js
@@ -549,6 +645,9 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
+# Quizes
 ## What is logged? (Part 2)
 
 ```js
@@ -569,6 +668,9 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
+# Quizes
 ## What is logged? (Part 3)
 
 ```js
@@ -587,6 +689,9 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
+# Quizes
 ## What is logged? (Part 4)
 
 ```js
@@ -605,6 +710,9 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
+# Quizes
 ## What is the difference?
 
 ```js
