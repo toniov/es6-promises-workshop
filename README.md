@@ -14,13 +14,13 @@ Valverde Antonio
 - Producing a Promise
 - Consuming a Promise
 - Instance methods
-	- then()
-	- catch()
+  - then()
+  - catch()
 - Static methods
-	- Promise.all()
-	- Promise.race()
-	- Promise.resolve()
-	- Promise.reject()
+  - Promise.all()
+  - Promise.race()
+  - Promise.resolve()
+  - Promise.reject()
 - Promise limitations
 - Compatibility Promises/callbacks in libraries
 - Quizes
@@ -36,7 +36,7 @@ Valverde Antonio
 
 ## Hadoken code
 
-![hadoken](hadoken.jpg)
+![hadoken](imgs/hadoken.jpg)
 
 ---
 
@@ -45,11 +45,11 @@ Valverde Antonio
 
 - Chaining is simpler
 - Promise-based functions return results, they don’t continue execution via callbacks
-	- The caller stays in control 
+  - The caller stays in control 
 - Cleaner signatures
     - With callbacks, the parameters of a function are mixed. With Promises all parameters are input 
 - Standardized
-	- Before promises: Node.js callbacks, XMLHttpRequest, IndexedDB, etc
+  - Before promises: Node.js callbacks, XMLHttpRequest, IndexedDB, etc
 
 ---
 
@@ -114,7 +114,7 @@ This makes callbacks not very trustable in some cases.
 - If a result is available, the Promise is `fulfilled`
 - If an error happened, the Promise is `rejected`
 
-    ![promise-states](promise-states.png)
+    ![promise-states](imgs/promise-states.png)
 
 
 ---
@@ -166,7 +166,7 @@ promise.then(
     console.log(result);
   },
   function rejected () {
-    // handle rejected promise	
+    // handle rejected promise  
   }
 );
 ```
@@ -181,7 +181,7 @@ Accepts two callbacks parameters
 - First parameter: called in case of resolve
 - Second parameter: called in case of rejection
 
-    ![then-params](then-params.png)
+    ![then-params](imgs/then-params.png)
 
 → In case something different from a function is passed as parameter, that `then()` is ignored and the Promise chain continues.
 
@@ -398,7 +398,7 @@ Promise.race([
     });
   ])
   .then(text => {
-	...
+  ...
   })
   .catch(reason => {
     // Receives first rejection among the Promises
@@ -757,4 +757,4 @@ https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Pr
 ---
 
 # >　　　　　Thank you!
-# >　　　　　![yotsuba](yotsuba.jpg)
+# >　　　　　![yotsuba](imgs/yotsuba.jpg)
