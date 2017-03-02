@@ -276,9 +276,7 @@ promise.catch(error => {
 
 ---
 
-# Static methods
-
-## `Promise.all()`
+# Static methods: `Promise.all()`
 
 Accepts an iterable as parameter.
 
@@ -303,8 +301,6 @@ Promise.all([
 ```
 
 ---
-
-# Static methods: `Promise.all()`
 
 Native `Array.prototype.map()` can be used:
 
