@@ -1,20 +1,5 @@
-# Workshop about ES2017 async/await
-
-Slides created using [GitPitch](https://github.com/gitpitch/gitpitch). 
-
-Presentation URL:
-https://gitpitch.com/toniov/es6-pronmises-workshop
-
-
-
-
-
-<!-- $theme: default -->
-
-<!-- $height: 1000px-->
-<!-- page_number: true -->
-# About ES6 Promises
-Valverde Antonio
+# ES6 Promises workshop
+Antonio Valverde
 
 ---
 
@@ -46,42 +31,67 @@ Valverde Antonio
 
 # Why Promises?
 
+---
+
 ## Hadoken code
 
-![hadoken](imgs/hadoken.jpg)
+![hadoken](assets/imgs/hadoken.jpg)
+
++++
 
 ## Compared to callback:
 
-- Chaining is simpler
-- Promise-based functions return results, they don’t continue execution via callbacks
-  - The caller stays in control 
-- Cleaner signatures
-    - With callbacks, the parameters of a function are mixed. With Promises all parameters are input 
-- Standardized
-  - Before promises: Node.js callbacks, XMLHttpRequest, IndexedDB, etc
+Chaining is simpler
+
++++
+
+Promise-based functions return results, they don’t continue execution via callbacks
+→ The caller stays in control 
+
++++
+
+Cleaner signatures
+→ With callbacks, the parameters of a function are mixed. With Promises all parameters are input 
+
++++
+
+Standardized
+→ Before promises: Node.js callbacks, XMLHttpRequest, IndexedDB, etc
+
+---
 
 # One more reason: Trust
 
++++
+
 ## Problems with callbacks
 
-1) Call the callback more than once
-2) Call the callback too early
-3) Don’t call the callback
-4) Errors could create a synchronous reaction whereas nonerrors would be asynchronous
+  1) Call the callback more than once
+  2) Call the callback too early
+  3) Don’t call the callback
+  4) Errors could create a synchronous reaction whereas nonerrors would be asynchronous
 
 This makes callbacks not very trustable in some cases.
+
++++
 
 ## 1) Call the callback more than once
 
 → Promises are resolved only once by definition
 
++++
+
 ## 2) Call the callback too early
 
 → The callback you provide to Promise instances then(..) method will always be called asynchronously
 
++++
+
 ## 3) Don’t call the callback
 
 → A timeout can be set using Promise.race(..)
+
++++
 
 ## 4) Errors could create a synchronous reaction whereas nonerrors would be asynchronous
 
@@ -91,19 +101,21 @@ This makes callbacks not very trustable in some cases.
 
 # What Is a Promise?
 
+---
 
 ## A promise is a future value
 
 ---
 
 # Promise states
-## A Promise is always in one of three mutually exclusive states:
+
+A Promise is always in one of three mutually exclusive states:
+
 - Before the result is ready, the Promise is `pending`
 - If a result is available, the Promise is `fulfilled`
 - If an error happened, the Promise is `rejected`
 
-    ![promise-states](imgs/promise-states.png)
-
+![promise-states](assets/imgs/promise-states.png)
 
 ---
 
@@ -111,10 +123,10 @@ This makes callbacks not very trustable in some cases.
 
 ## `Promises/A+`
 https://promisesaplus.com/
-<br>
 
 From now on I will speak about ES6 Native promises.
 
+---
 
 ## Famous Promise libraries
 
@@ -140,10 +152,11 @@ const p = new Promise(
     });
 ```
 
----
++++
 
 # Consuming a Promise
-## Super rough basic usage
+
+Super rough basic usage
 
 ```js
 const promise = returnPromise();
@@ -162,21 +175,23 @@ promise.then(
 
 # Instance methods
 
+---
+
 ## `then()`
 
 Accepts two callbacks parameters
 - First parameter: called in case of resolve
 - Second parameter: called in case of rejection
 
-    ![then-params](imgs/then-params.png)
+![then-params](assets/imgs/then-params.png)
+
++++
 
 → In case something different from a function is passed as parameter, that `then()` is ignored and the Promise chain continues.
 
 ---
 
-# Instance methods: `then()`
-
-### Always return a promise
+### Always returns a promise
 
 ```js
 const p = Promise.resolve(3)
@@ -185,12 +200,12 @@ const p = Promise.resolve(3)
     console.log(x);
   });
 
-
 p instanceof Promise // true
 ```
 
-### Always return a promise
-#### → Return an empty resolved promise if there is no return
+++++
+
+#### → Returns an empty resolved promise if there is no return
 ```js
 Promise.resolve(3)
   .then(x => {})
@@ -199,7 +214,8 @@ Promise.resolve(3)
   });
 ```
 
-### Always return a promise
++++
+
 #### → If a normal result is returned, it is returned as a resolved promise
 ```js
 Promise.resolve(3)
@@ -210,6 +226,9 @@ Promise.resolve(3)
     console.log(x); // 4
   });
 ```
+
++++
+
 ```js
 // same as code above
 const p = Promise.resolve(3)
@@ -224,7 +243,8 @@ p.then(x => {
 });
 ```
 
-### Always return a promise
++++
+
 #### → A fulfilled or rejected promise can be returned as well
 ```js
 Promise.resolve(3)
@@ -234,7 +254,6 @@ Promise.resolve(3)
   .then(x => {
     console.log(x);
   });
-
 
 Promise.resolve(3)
   .then(x => {
@@ -248,8 +267,9 @@ Promise.resolve(3)
   });
 ```
 
-### Always return a promise
-#### → if an exception is thrown returns a rejected promise with the value
++++
+
+#### → if an exception is thrown, returns a rejected promise with the value
 ```js
 Promise.resolve(3)
   .then(x => {
@@ -268,7 +288,7 @@ Promise.resolve(3)
 
 ---
 
-# Instance methods: `catch()`
+## `catch()`
 
 ### `catch()` is simply a more convenient alternative to calling `then()`
 
@@ -285,13 +305,20 @@ promise.catch(error => {
 });
 ```
 
-# Instance methods: `done()` ?
+---
+
+# Instance methods
+## `done()` ?
 
 `done()` is implemented in some libraries, but not in ES6 Promises at the moment.
 
 ---
 
-# Static methods: `Promise.all()`
+# Static methods
+
+---
+
+## `Promise.all()`
 
 Accepts an iterable as parameter.
 
@@ -300,6 +327,8 @@ Returns a Promise that:
    - Fulfillment value: Array with fulfillment values
 - Is rejected if any of the elements are rejected
    - Rejection value: first rejection value
+
++++
 
 ```js
 Promise.all([
@@ -315,7 +344,7 @@ Promise.all([
   });
 ```
 
----
++++
 
 Native `Array.prototype.map()` can be used:
 
@@ -340,7 +369,7 @@ Promise.all(promisedTexts)
 
 ---
 
-# Static methods: `Promise.race()`
+## `Promise.race()`
 
 Accepts an iterable as parameter.
 
@@ -361,7 +390,9 @@ Promise.race([
   });
 ```
 
-# Static methods: `Promise.resolve(x)`
+---
+
+## `Promise.resolve(x)`
 
 ### Returns a Promise that is fulfilled with `x`.
 ### `x` can be:
@@ -369,12 +400,18 @@ Promise.race([
 - Promise
 - Thenable
 
++++
+
+# Static methods: `Promise.resolve(x)`
+
 If `x` is a value:
 
 ```js
  Promise.resolve('abc')
    .then(x => console.log(x)); // abc
 ```
+ 
++++
 
 If `x` is a Promise whose constructor is the receiver then x is returned unchanged:
 
@@ -384,8 +421,9 @@ const p = new Promise(() => null);
 console.log(Promise.resolve(p) === p); // true
 ```
 
-If `x` is a `thenable`, it is converted to a Promise.
++++
 
+If `x` is a `thenable`, it is converted to a Promise.
 
 → *A `thenable` is an object that has a Promise-style then() method.*
 
@@ -402,7 +440,8 @@ const myError = new Error('Problem!');
 Promise.reject(myError)
   .catch(err => console.log(err === myError)); // true
 ```
-<br>
+
++++
 
 In the code below `p1` and `p2` have a rejected promise with the reason `'Ooops'`.
 
@@ -417,6 +456,8 @@ var p2 = Promise.reject('Oops');
 ---
 
 # Promise limitations
+
+---
 
 ## Sequence error handling
 
@@ -434,6 +475,8 @@ p.catch( handleErrors );
 
 If any step of the chain in fact does its own error handling (perhaps hidden/abstracted away from what you can see), `handleErrors(..)` won't be notified.
 
+---
+
 ## Single value
 
 Promises by definition only have a single fulfillment value or a single rejection reason.
@@ -450,6 +493,9 @@ Promise.resolve(3)
     console.log( x, y );
   });
 ```
+
++++
+
 ```js
 Promise.resolve(3)
   .then(x => {
@@ -462,6 +508,8 @@ Promise.resolve(3)
   });
 ```
 
++++
+
 Using ES6 destructuring we can avoid some boilerplate :
 
 ```js
@@ -473,6 +521,9 @@ Promise.resolve(3)
     console.log(x, y);
   });
 ```
+
++++
+
 ```js
 Promise.resolve(3)
   .then(x => {
@@ -483,6 +534,8 @@ Promise.resolve(3)
   });
 ```
 
+---
+
 ## Promise uncancelable
 
 Once you create a Promise and register a fulfillment and/or rejection handler for it, there's nothing external you can do to stop that progression.
@@ -491,9 +544,11 @@ Once you create a Promise and register a fulfillment and/or rejection handler fo
 
 # Compatibility Promises/callbacks in libraries
 
-## Many libraries have implemented compatibility with both Promises and callbacks.
+Many libraries have implemented compatibility with both Promises and callbacks.
 
 As a convention, usually a Promise is returned if no callback is passed.
+
+---
 
 ## Example: Node.js MongoDB Driver API
 
@@ -515,11 +570,13 @@ collection.find().toArray().then(
 ---
 
 # Quizes
+
+---
+
 ## Log Order?
 
 ```js
 const p = Promise.resolve()
-
 
 p.then( function a() {
     p.then( function c() {
@@ -528,17 +585,16 @@ p.then( function a() {
     console.log('A');
 } );
 
-
 console.log('D');
-
 
 p.then( function b() {
     console.log('B');
 } );
 
-
 console.log('F');
 ```
+
+--- 
 
 ## What is logged? (Part 1)
 
@@ -560,6 +616,8 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
 ## What is logged? (Part 2)
 
 ```js
@@ -580,6 +638,8 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
 ## What is logged? (Part 3)
 
 ```js
@@ -598,6 +658,8 @@ Promise.resolve()
   .then(finalHandler);
 ```
 
+--- 
+
 ## What is logged? (Part 4)
 
 ```js
@@ -615,6 +677,8 @@ Promise.resolve()
   .then(doSomethingElse)
   .then(finalHandler);
 ```
+
+--- 
 
 ## What is the difference?
 
@@ -660,4 +724,4 @@ https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Pr
 ---
 
 # >　　　　　Thank you!
-# >　　　　　![yotsuba](imgs/yotsuba.jpg)
+# >　　　　　![yotsuba](assets/imgs/yotsuba.jpg)
